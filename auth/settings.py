@@ -138,16 +138,16 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        ),
-    'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsAdminUser',
+        # Other authentication classes...
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+        # Other permission classes...
+    ),
+    # Other settings...
 }
-
-
-
 
 
 
