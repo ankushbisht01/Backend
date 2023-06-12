@@ -128,9 +128,7 @@ class RatingView(APIView):
     
     def post(self , request , pk):
         #save the rating for the tour with pk 
-        #get token from header
-
-        token = request.headers.get('jwt')
+        token = request.COOKIES.get('jwt')
         
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
