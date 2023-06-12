@@ -53,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "auth.urls"
@@ -162,3 +163,8 @@ AUTH_USER_MODEL = "user.User"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True 
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3001",
+    "http://localhost:8000",
+
+]
