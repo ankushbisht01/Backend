@@ -132,22 +132,16 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # Other authentication classes...
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-        # Other permission classes...
-    ),
-    # Other settings...
 }
+
 
 
 
@@ -172,11 +166,6 @@ AUTH_USER_MODEL = "user.User"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True 
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3001",
-    "http://localhost:8000",
-
-]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://backend-production-9ac3.up.railway.app'
