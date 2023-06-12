@@ -140,10 +140,16 @@ class RatingView(APIView):
         
         user = User.objects.filter(id=payload['id']).first()
         tour = Tour.objects.get(id=pk)
-        #create an object of rating
-        rating = Rating.objects.create(user=user , tour=tour , **request.data)
-        rating.save()
-        serializer = RatingSerializer(rating , many=False)
+        data = {
+            'user': user.id,
+            'tour': tour.id,
+            'rating': request.data['rating'],
+        }
+
+        serializer = RatingSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         return Response(serializer.data)
     
 
