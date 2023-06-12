@@ -49,7 +49,7 @@ class User(AbstractUser):
 
 class Tour(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
-    description = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     price = models.CharField(max_length=50, null=True, blank=True)
     image1 = models.URLField(max_length=200, null=True, blank=True)
     image2 = models.URLField(max_length=200, null=True, blank=True)

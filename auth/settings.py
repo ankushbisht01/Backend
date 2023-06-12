@@ -143,6 +143,14 @@ REST_FRAMEWORK = {
 
 
 
+DATABASES = {
+    'default': 
+
+        dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=1800),
+    
+    
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -153,3 +161,7 @@ AUTH_USER_MODEL = "user.User"
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://backend-production-9ac3.up.railway.app',
+]
