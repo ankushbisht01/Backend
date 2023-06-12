@@ -177,3 +177,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
 
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://backend-production-9ac3.up.railway.app'
+]
