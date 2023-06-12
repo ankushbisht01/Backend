@@ -11,7 +11,7 @@ urlpatterns = [
     path('tour/<int:pk>/update/', views.SingleTourView.as_view()),
     path('tour/<int:pk>/delete/', views.SingleTourView.as_view()),
     
-    path('rating/<int:pk>/', views.SingleRatingView.as_view()),
+    path('rating/<int:pk>/', views.RatingView.as_view()),
     
 
 
