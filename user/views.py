@@ -109,14 +109,43 @@ class SingleTourView(APIView):
     
 
 class RatingView(APIView):
-    def get(self , request):
-        ratings = Rating.objects.all()
+    def get(self , request , pk):
+        token =  request.COOKIES.get('jwt')
+        
+        if not token:
+            raise AuthenticationFailed('Unauthenticated! ')
+
+        try:
+            payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated! ')
+        
+        user = User.objects.filter(id=payload['id']).first()
+
+        ratings = Rating.objects.filter(user=user , pk = pk)
         serializer = RatingSerializer(ratings , many=True)
         return Response(serializer.data)
     
-    def post(self , request):
-        serializer = RatingSerializer(data = request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+    def post(self , request , pk):
+        #save the rating for the tour with pk 
+        token =  request.COOKIES.get('jwt')
+        
+        if not token:
+            raise AuthenticationFailed('Unauthenticated! ')
+        
+        try:
+            payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated! ')
+        
+        user = User.objects.filter(id=payload['id']).first()
+        tour = Tour.objects.get(id=pk)
+        #create an object of rating
+        rating = Rating.objects.create(user=user , tour=tour , **request.data)
+        rating.save()
+        serializer = RatingSerializer(rating , many=False)
         return Response(serializer.data)
+    
+
+    
     
