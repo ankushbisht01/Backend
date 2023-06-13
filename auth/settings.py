@@ -170,3 +170,8 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     'https://backend-production-9ac3.up.railway.app'
 ]
+
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3001',
+]
