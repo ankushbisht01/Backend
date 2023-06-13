@@ -174,4 +174,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3001',
+    'https://backend-production-9ac3.up.railway.app/',
+
 ]
