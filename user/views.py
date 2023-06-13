@@ -111,11 +111,7 @@ class SingleTourView(APIView):
 class RatingView(APIView):
     def get(self , request , pk):
         
-        auth_header = request.headers.get('Authorization')
-        if auth_header:
-            # Extract the token from the header
-            token = auth_header.split(' ')[1]
-        print(token)
+        token =   request.COOKIES.get('jwt')
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
 
