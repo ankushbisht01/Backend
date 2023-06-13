@@ -112,6 +112,7 @@ class RatingView(APIView):
     def get(self , request , pk):
         
         token =   request.COOKIES.get('jwt')
+        print(request.COOKIES)
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
 
