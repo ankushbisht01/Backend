@@ -168,8 +168,11 @@ AUTH_USER_MODEL = "user.User"
 
 CORS_ALLOWED_ORIGINS = [
     
+    "https://backend-production-9ac3.up.railway.app",
     "http://localhost:3000",
+    
 ]
+
 
 
 
