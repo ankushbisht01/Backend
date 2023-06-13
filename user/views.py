@@ -118,7 +118,7 @@ class RatingView(APIView):
         try:
             payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated! ')
+            raise AuthenticationFailed('FAiled ! ')
         
         user = User.objects.filter(id=payload['id']).first()
         tour = Tour.objects.get(id=pk)
