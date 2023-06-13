@@ -111,7 +111,7 @@ class SingleTourView(APIView):
 class RatingView(APIView):
     def get(self , request , pk):
         token =  request.COOKIES.get('jwt')
-        
+        print(request.COOKIES)
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
 
@@ -121,14 +121,16 @@ class RatingView(APIView):
             raise AuthenticationFailed('Unauthenticated! ')
         
         user = User.objects.filter(id=payload['id']).first()
-
-        ratings = Rating.objects.filter(user=user , pk = pk)
+        tour = Tour.objects.get(id=pk)
+        ratings = Rating.objects.filter(user=user , tour = tour)
         serializer = RatingSerializer(ratings , many=True)
+        
         return Response(serializer.data)
     
     def post(self , request , pk):
         #save the rating for the tour with pk 
-        token = request.COOKIES.get('jwt')
+        token =  request.COOKIES.get('jwt')
+        
         
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -136,7 +138,7 @@ class RatingView(APIView):
         try:
             payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated! ')
+            raise AuthenticationFailed('Failes deoding ')
         
         user = User.objects.filter(id=payload['id']).first()
         tour = Tour.objects.get(id=pk)
@@ -145,7 +147,10 @@ class RatingView(APIView):
             'tour': tour.id,
             'rating': request.data['rating'],
         }
-
+        #check if there is a rating for this user and this tour delete it 
+        rating = Rating.objects.filter(user=user , tour = tour)
+        if rating is not None:
+            rating.delete()
         serializer = RatingSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
