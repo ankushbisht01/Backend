@@ -111,7 +111,7 @@ class SingleTourView(APIView):
 class RatingView(APIView):
     def get(self , request , pk):
         token =  request.COOKIES.get('jwt')
-        print(request.COOKIES)
+        print(request.headers)
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
 
