@@ -181,6 +181,12 @@ CORS_ALLOWED_ORIGINS = [
     
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    "https://backend-production-9ac3.up.railway.app",
+    "http://localhost:3000",
+]
+
+
 #add cors whitelised domains
 
 
