@@ -58,7 +58,9 @@ class LoginView(APIView):
 
 class UserView(APIView):
     def get(self , request ):
-        token =   request.COOKIES.get('jwt')
+        token1 =   request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization').split(' ')[1]
+        
         
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -142,7 +144,9 @@ class RatingView(APIView):
     
     def post(self , request , pk):
         #save the rating for the tour with pk 
-        token =  request.COOKIES.get('jwt')
+        token1 =   request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization').split(' ')[1]
+        
         
         print(token)
         if not token:
@@ -185,8 +189,9 @@ class ChatBotAPIView(APIView):
 
 class BookingView(APIView):
     def post(self , request , pk):
-        token =  request.COOKIES.get('jwt')
-        print(request.data)
+        token1 =   request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization').split(' ')[1]
+        
 
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -240,7 +245,9 @@ class CommentView(APIView):
         return Response(response)
     
     def post(self , request , pk):
-        token =  request.COOKIES.get('jwt')
+        token1 =   request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization').split(' ')[1]
+        
         print(token)
 
         if not token:
