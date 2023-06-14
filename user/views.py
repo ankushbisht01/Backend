@@ -14,6 +14,7 @@ from .serializers import UserSerializer , TourSerializer , RatingSerializer , Ch
 from .models import User , Tour , Rating , ChatMessage , Booking , comment
 
 from gpt4_openai import GPT4OpenAI
+from jwt import ExpiredSignatureError, DecodeError
 import json
 
 
@@ -236,15 +237,18 @@ class CommentView(APIView):
     
     def post(self , request , pk):
         token =  request.COOKIES.get('jwt')
-        print(request.data)
+        print(token)
 
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
         
         try:
             payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Failes deoding ')
+        except ExpiredSignatureError:
+            raise AuthenticationFailed('Token expired!', code=401)
+        except DecodeError:
+            raise AuthenticationFailed('Invalid token!', code=401)
+
         
         user = User.objects.filter(id=payload['id']).first()
         tour = Tour.objects.get(id=pk)
