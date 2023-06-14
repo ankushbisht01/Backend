@@ -16,6 +16,8 @@ from .models import User , Tour , Rating , ChatMessage , Booking , comment
 from gpt4_openai import GPT4OpenAI
 from jwt import ExpiredSignatureError, DecodeError
 import json
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 
 # Create your views here.
@@ -40,7 +42,7 @@ class LoginView(APIView):
         
         payload = {
             'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60000),
             'iat': datetime.datetime.utcnow()
         }
 
@@ -117,6 +119,7 @@ class SingleTourView(APIView):
     
 
 class RatingView(APIView):
+    
     def get(self , request , pk):
         
         token =   request.COOKIES.get('jwt')
@@ -140,7 +143,7 @@ class RatingView(APIView):
         #save the rating for the tour with pk 
         token =  request.COOKIES.get('jwt')
         
-        
+        print(token)
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
         

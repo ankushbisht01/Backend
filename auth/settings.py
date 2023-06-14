@@ -174,6 +174,17 @@ AUTH_USER_MODEL = "user.User"
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+CORS_ALLOWED_ORIGINS = [
+    "https://backend-production-9ac3.up.railway.app",
+    "http://localhost:3000",
+]
+
+CORS_ALLOWED_WHITELIST = [
+    "https://backend-production-9ac3.up.railway.app",
+    "http://localhost:3000",
+]
+
+
 
 #add cors whitelised domains
 
