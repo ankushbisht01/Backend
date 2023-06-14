@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User , Tour , Rating
+from .models import User , Tour , Rating , ChatMessage , Booking , comment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,3 +39,23 @@ class RatingSerializer(serializers.ModelSerializer):
         rating = Rating(**validated_data)
         rating.save()
         return rating
+    
+
+
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
+        fields = '__all__'
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = comment
+        fields = '__all__'
+
+    

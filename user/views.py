@@ -1,14 +1,21 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 
-from rest_framework.views import APIView
+
+from rest_framework.views import APIView 
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-
+from rest_framework import generics
 
 import jwt , datetime
+from decouple import config
 
-from .serializers import UserSerializer , TourSerializer , RatingSerializer
-from .models import User , Tour , Rating
+from .serializers import UserSerializer , TourSerializer , RatingSerializer , ChatMessageSerializer , BookingSerializer , CommentSerializer
+from .models import User , Tour , Rating , ChatMessage , Booking , comment
+
+from gpt4_openai import GPT4OpenAI
+import json
+
 
 # Create your views here.
 
@@ -160,4 +167,92 @@ class RatingView(APIView):
     
 
     
+class ChatBotAPIView(APIView):
+    def post(self, request):
+        my_token = config('Token')
+        llm = GPT4OpenAI(token=my_token, model='gpt-4')
+        message = request.data['content']
+        response = llm(message)
+
+
+        return Response({'message': response})
+
+
+class BookingView(APIView):
+    def post(self , request , pk):
+        token =  request.COOKIES.get('jwt')
+        print(request.data)
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated! ')
+        
+        try:
+            payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Failes deoding ')
+        
+        user = User.objects.filter(id=payload['id']).first()
+        tour = Tour.objects.get(id=pk)
+        #create a booking model    
+        #set all the other attributes 
+        fname =   request.data['first_name']
+        lname =   request.data['last_name']
+        email =   request.data['email']
+        phone =   request.data['phone_number']
+        numberOfPeople =   request.data['group_size']
+        totalPrice =  request.data['totalPrice']
+        date = request.data["selected_date"]
+        #convert date into datetime object 
+        date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+
+        print(fname , lname , email , phone , numberOfPeople , totalPrice)
+        Book = Booking.objects.create(user=user , tour=tour , fname=fname , lname=lname , email=email ,  numberOfPeople=numberOfPeople , 
+                                      totalPrice=totalPrice , date=date , phone = phone )
+
+
+        Book.save()
+
+        return Response({
+            'message': 'success'
+        })
     
+
+
+class CommentView(APIView):
+    def get(self , request , pk):
+        tour = Tour.objects.get(id=pk)
+        comments = comment.objects.filter(tour=tour)
+        serializer = CommentSerializer(comments , many=True)
+        print(serializer.data)
+        response = []
+        for i in serializer.data:
+            user = User.objects.get(id=i['user'])
+            response.append({
+                'user': user.name,
+                'comment': i['comment']
+            })
+        
+        return Response(response)
+    
+    def post(self , request , pk):
+        token =  request.COOKIES.get('jwt')
+        print(request.data)
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated! ')
+        
+        try:
+            payload = jwt.decode(token , 'secret' , algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Failes deoding ')
+        
+        user = User.objects.filter(id=payload['id']).first()
+        tour = Tour.objects.get(id=pk)
+        #create a booking model    
+        #set all the other attributes 
+        content =   request.data['comment']
+        
+        comment.objects.create(user=user , tour=tour , comment=content).save()
+        return Response({
+            'message': 'success'
+        })

@@ -71,3 +71,33 @@ class Rating(models.Model):
     
 
     
+class ChatMessage(models.Model):
+    content = models.TextField()
+    sender = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
+    
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=50, null=True, blank=True)
+    lname = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    phone = models.CharField(max_length=10, null=True, blank=True)
+    date = models.DateField( null=True, blank=True)
+    time = models.TimeField(null = True, blank=True)
+    numberOfPeople = models.IntegerField()
+    totalPrice = models.IntegerField()
+    def __str__(self):
+        return self.user.name + " " + self.tour.title + " " + str(self.date) + " " + str(self.time) + " " + str(self.numberOfPeople) + " " + str(self.totalPrice)
+
+
+class comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.user.name + " " + self.tour.title + " " + str(self.created_at)

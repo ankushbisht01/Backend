@@ -12,7 +12,12 @@ urlpatterns = [
     path('tour/<int:pk>/delete/', views.SingleTourView.as_view()),
     
     path('rating/<int:pk>/', views.RatingView.as_view()),
-    
+
+     path('chat-messages/', views.ChatBotAPIView.as_view(), name='chat-messages'),
+
+    path('Booking/<int:pk>/', views.BookingView.as_view()),
+
+    path('comment/<int:pk>/', views.CommentView.as_view()),
 
 
 ]
