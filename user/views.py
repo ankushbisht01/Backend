@@ -126,6 +126,7 @@ class RatingView(APIView):
         
         token1 =   request.COOKIES.get('jwt')
         token = request.headers.get('Authorization').split(' ')[1]
+        print(token , token1)
         
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -245,9 +246,7 @@ class CommentView(APIView):
         return Response(response)
     
     def post(self , request , pk):
-        token1 =   request.COOKIES.get('jwt')
-        token = request.headers.get('Authorization').split(' ')[1]
-        
+        token =  request.COOKIES.get('jwt')
         print(token)
 
         if not token:
