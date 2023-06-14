@@ -177,10 +177,11 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     
     "https://backend-production-9ac3.up.railway.app",
-    "http://localhost:3000",
+    "http://localhost:3000/",
     
 ]
 
+#add cors whitelised domains
 
 
 
