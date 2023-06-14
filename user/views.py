@@ -132,7 +132,7 @@ class RatingView(APIView):
         tour = Tour.objects.get(id=pk)
         ratings = Rating.objects.filter(user=user , tour = tour)
         serializer = RatingSerializer(ratings , many=True)
-        
+        print(serializer.data)
         return Response(serializer.data)
     
     def post(self , request , pk):
@@ -223,7 +223,7 @@ class CommentView(APIView):
         tour = Tour.objects.get(id=pk)
         comments = comment.objects.filter(tour=tour)
         serializer = CommentSerializer(comments , many=True)
-        print(serializer.data)
+        
         response = []
         for i in serializer.data:
             user = User.objects.get(id=i['user'])
