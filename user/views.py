@@ -274,10 +274,8 @@ class CommentView(APIView):
     
 class Contact(APIView):
     def post(self , request):
-        name = request.data['name']
-        email = request.data['email']
-        message = request.data['message']
-        ContactUs.objects.create(name=name , email=email , message=message).save()
-        return Response({
-            'message': 'success'
-        })
+        name = request.data.get('name')
+        email = request.data.get('email')
+        message = request.data.get('message')
+        ContactUs.objects.create(name=name, email=email, message=message)
+        return Response({'message': 'success'})
