@@ -101,3 +101,12 @@ class comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.user.name + " " + self.tour.title + " " + str(self.created_at)
+    
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    phone = models.CharField(max_length=10, null=True, blank=True)
+    message = models.TextField( null=True, blank=True)
+    def __str__(self):
+        return self.name + " " + self.email + " " + self.phone + " " + self.message

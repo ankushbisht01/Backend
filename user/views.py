@@ -11,7 +11,7 @@ import jwt , datetime
 from decouple import config
 
 from .serializers import UserSerializer , TourSerializer , RatingSerializer , ChatMessageSerializer , BookingSerializer , CommentSerializer
-from .models import User , Tour , Rating , ChatMessage , Booking , comment
+from .models import User , Tour , Rating , ChatMessage , Booking , comment , ContactUs
 
 from gpt4_openai import GPT4OpenAI
 from jwt import ExpiredSignatureError, DecodeError
@@ -268,6 +268,16 @@ class CommentView(APIView):
         content =   request.data['comment']
         
         comment.objects.create(user=user , tour=tour , comment=content).save()
+        return Response({
+            'message': 'success'
+        })
+    
+class Contact(APIView):
+    def post(self , request):
+        name = request.data['name']
+        email = request.data['email']
+        message = request.data['message']
+        ContactUs.objects.create(name=name , email=email , message=message).save()
         return Response({
             'message': 'success'
         })
