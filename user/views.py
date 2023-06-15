@@ -149,7 +149,7 @@ class RatingView(APIView):
         token = request.headers.get('Authorization').split(' ')[1]
         
         
-        print(token)
+        print(token ,)
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
         
