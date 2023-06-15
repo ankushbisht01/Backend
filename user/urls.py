@@ -18,6 +18,7 @@ urlpatterns = [
     path('Booking/<int:pk>/', views.BookingView.as_view()),
 
     path('comment/<int:pk>/', views.CommentView.as_view()),
+    path('contact/', views.ContactView.as_view()),
 
 
 ]
