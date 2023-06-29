@@ -126,7 +126,7 @@ class RatingView(APIView):
         
         token1 =   request.COOKIES.get('jwt')
         token = request.headers.get('Authorization').split(' ')[1]
-        print(token , token1)
+        
         
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -140,7 +140,7 @@ class RatingView(APIView):
         tour = Tour.objects.get(id=pk)
         ratings = Rating.objects.filter(user=user , tour = tour)
         serializer = RatingSerializer(ratings , many=True)
-        print(serializer.data)
+        
         return Response(serializer.data)
     
     def post(self , request , pk):
@@ -149,7 +149,7 @@ class RatingView(APIView):
         token = request.headers.get('Authorization').split(' ')[1]
         
         
-        print(token , token1)
+        
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
         
@@ -180,7 +180,7 @@ class RatingView(APIView):
 class ChatBotAPIView(APIView):
     def post(self, request):
         my_token = config('Token')
-        llm = GPT4OpenAI(token=my_token, model='gpt-4')
+        llm = GPT4OpenAI(token=my_token, model='gpt-3')
         message = request.data['content']
         response = llm(message)
 
@@ -216,7 +216,7 @@ class BookingView(APIView):
         #convert date into datetime object 
         date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
 
-        print(fname , lname , email , phone , numberOfPeople , totalPrice)
+        
         Book = Booking.objects.create(user=user , tour=tour , fname=fname , lname=lname , email=email ,  numberOfPeople=numberOfPeople , 
                                       totalPrice=totalPrice , date=date , phone = phone )
 
@@ -248,7 +248,7 @@ class CommentView(APIView):
     def post(self , request , pk):
         token1 =  request.COOKIES.get('jwt')
         token = request.headers.get('Authorization').split(' ')[1]
-        print(token)
+        
 
         if not token:
             raise AuthenticationFailed('Unauthenticated! ')
@@ -266,7 +266,7 @@ class CommentView(APIView):
         #create a booking model    
         #set all the other attributes 
         content =   request.data['comment']
-        
+        print(content)
         comment.objects.create(user=user , tour=tour , comment=content).save()
         return Response({
             'message': 'success'
