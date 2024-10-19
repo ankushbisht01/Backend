@@ -1,16 +1,21 @@
 {
   "builds": [
-    { "src": "auth/wsgi.py", "use": "@vercel/python" ,"config": {
+    { 
+      "src": "auth/wsgi.py", 
+      "use": "@vercel/python",
+      "config": {
         "runtime": "python3.9"
-      } } 
+      } 
+    }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
     },
-    { "src": "/(.*)", "dest": "auth/wsgi.py" }
+    { 
+      "src": "/(.*)", 
+      "dest": "auth/wsgi.py" 
+    }
   ]
-  , 
-  
 }
