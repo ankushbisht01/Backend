@@ -3,6 +3,10 @@
     { "src": "auth/wsgi.py", "use": "@vercel/python" }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
     { "src": "/(.*)", "dest": "auth/wsgi.py" }
   ]
 }
