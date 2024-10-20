@@ -42,14 +42,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'user',
     'rest_framework',
-    'corsheaders',
+    # 'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    # "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -171,18 +171,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "user.User"
 
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [
-    "https://backend-production-9ac3.up.railway.app",
-    "http://localhost:3000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://backend-production-9ac3.up.railway.app",
+#     "http://localhost:3000",
+# ]
 
-CORS_ALLOWED_WHITELIST = [
-    "https://backend-production-9ac3.up.railway.app",
-    "http://localhost:3000",
-]
+# CORS_ALLOWED_WHITELIST = [
+#     "https://backend-production-9ac3.up.railway.app",
+#     "http://localhost:3000",
+# ]
 
 
 
