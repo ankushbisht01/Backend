@@ -3,7 +3,6 @@ aiosignal
 anyio
 asgiref
 async-timeout
-async-tio
 attrs
 certifi
 cffi
@@ -29,7 +28,6 @@ idna
 langchain
 langchainplus-sdk
 marshmallow
-marshmallow-enum
 multidict
 mypy-extensions
 numexpr
@@ -39,6 +37,7 @@ OpenAIAuth
 openapi-schema-pydantic
 packaging
 prompt-toolkit
+psycopg2
 psycopg2-binary
 pycparser
 pydantic
@@ -60,9 +59,7 @@ tiktoken
 tqdm
 typing-inspect
 typing_extensions
-tzdata
 urllib3
 wcwidth
-weather-forecast
 whitenoise
 yarl
