@@ -39,7 +39,7 @@ OpenAIAuth
 openapi-schema-pydantic
 packaging
 prompt-toolkit
-psycopg2
+psycopg2-binary
 pycparser
 pydantic
 PyJWT
