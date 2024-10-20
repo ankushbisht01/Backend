@@ -13,7 +13,7 @@ from decouple import config
 from .serializers import UserSerializer , TourSerializer , RatingSerializer , ChatMessageSerializer , BookingSerializer , CommentSerializer
 from .models import User , Tour , Rating , ChatMessage , Booking , comment , ContactUs
 
-from gpt4_openai import GPT4OpenAI
+# from gpt4_openai import GPT4OpenAI
 from jwt import ExpiredSignatureError, DecodeError
 import json
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -180,9 +180,10 @@ class RatingView(APIView):
 class ChatBotAPIView(APIView):
     def post(self, request):
         my_token = config('Token')
-        llm = GPT4OpenAI(token=my_token, model='gpt-3')
-        message = request.data['content']
-        response = llm(message)
+        # llm = GPT4OpenAI(token=my_token, model='gpt-3')
+        # message = request.data['content']
+        # response = llm(message)
+        response = 'Hello'
 
 
         return Response({'message': response})
